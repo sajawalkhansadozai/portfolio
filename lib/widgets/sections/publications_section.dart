@@ -187,6 +187,9 @@ class _PublicationsSectionState extends State<PublicationsSection> {
     String title,
     String subtitle,
   ) {
+    // Check if this is "After Humanity" book for custom green cover
+    final bool isAfterHumanity = title.contains('After Humanity');
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
@@ -205,70 +208,129 @@ class _PublicationsSectionState extends State<PublicationsSection> {
           child: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: gradientColors,
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: isAfterHumanity
+                    ? [const Color(0xFF7FA650), const Color(0xFF5A7A3C)]
+                    : gradientColors,
               ),
             ),
-            child: Stack(
-              children: [
-                Positioned(
-                  left: -50,
-                  top: 50,
-                  child: Container(
-                    width: 150,
-                    height: 150,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: Colors.white.withOpacity(0.2),
-                        width: 40,
-                      ),
-                    ),
-                  ),
-                ),
-                // Content
-                Padding(
-                  padding: const EdgeInsets.all(30),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Sajawal Khan',
-                        style: GoogleFonts.poppins(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const Spacer(),
-                      Text(
-                        'The unseen\nbattle of\nHuman rights',
-                        style: GoogleFonts.poppins(
-                          fontSize: 16,
-                          color: Colors.white.withOpacity(0.9),
-                          height: 1.3,
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      Text(
-                        'Silent\nSuffering',
-                        style: GoogleFonts.poppins(
-                          fontSize: 42,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          height: 1.1,
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+            child: isAfterHumanity
+                ? _buildAfterHumanityCover(title, subtitle)
+                : _buildSilentSufferingCover(),
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildAfterHumanityCover(String title, String subtitle) {
+    return Stack(
+      children: [
+        // Geometric pattern background
+        Positioned.fill(child: CustomPaint(painter: GeometricPatternPainter())),
+        // Content
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title.replaceAll('After Humanity', 'After Humanity:'),
+                style: GoogleFonts.poppins(
+                  fontSize: 28,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                  height: 1.2,
+                ),
+              ),
+              const SizedBox(height: 15),
+              Text(
+                subtitle,
+                style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  color: Colors.white.withOpacity(0.95),
+                  height: 1.3,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              const Spacer(),
+              Container(
+                height: 2,
+                width: 60,
+                color: Colors.white.withOpacity(0.8),
+              ),
+              const SizedBox(height: 15),
+              Text(
+                'Sajawal Khan Sadozai',
+                style: GoogleFonts.poppins(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSilentSufferingCover() {
+    return Stack(
+      children: [
+        Positioned(
+          left: -50,
+          top: 50,
+          child: Container(
+            width: 150,
+            height: 150,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: Colors.white.withOpacity(0.2),
+                width: 40,
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Sajawal Khan',
+                style: GoogleFonts.poppins(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
+              const Spacer(),
+              Text(
+                'The unseen\nbattle of\nHuman rights',
+                style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  color: Colors.white.withOpacity(0.9),
+                  height: 1.3,
+                ),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                'Silent\nSuffering',
+                style: GoogleFonts.poppins(
+                  fontSize: 42,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  height: 1.1,
+                ),
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
@@ -437,4 +499,32 @@ class _PublicationsSectionState extends State<PublicationsSection> {
       debugPrint('Could not launch $urlString');
     }
   }
+}
+
+// Custom painter for geometric pattern on After Humanity cover
+class GeometricPatternPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = Colors.white.withOpacity(0.08)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.5;
+
+    // Draw diagonal lines
+    for (double i = -size.height; i < size.width + size.height; i += 40) {
+      canvas.drawLine(
+        Offset(i, 0),
+        Offset(i + size.height, size.height),
+        paint,
+      );
+    }
+
+    // Draw horizontal lines
+    for (double i = 0; i < size.height; i += 50) {
+      canvas.drawLine(Offset(0, i), Offset(size.width, i), paint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
