@@ -84,11 +84,12 @@ class AppStrings {
       'A powerful exploration of human rights violations and the silent struggles faced by countless individuals. This book sheds light on the untold stories of suffering and the fight for justice and dignity.';
 
   // Book 2
-  static const String book2Title = 'Your Second Book Title';
-  static const String book2Subtitle = 'Subtitle Here';
+  static const String book2Title = 'After Humanity';
+  static const String book2Subtitle =
+      'Evolution, AI, and the Future of Consciousness';
   static const String book2Author = 'By Sajawal Khan';
   static const String book2Description =
-      'Description of your second book goes here. Add details about the book\'s content and key themes.';
+      'A thought-provoking exploration of human evolution, artificial intelligence, and the future of consciousness. This book examines the intersection of technology and humanity, questioning what it means to be human in an age of rapid technological advancement.';
 
   static const String viewOnAmazon = 'View on Amazon';
   static const String downloadPDF = 'Download PDF';
