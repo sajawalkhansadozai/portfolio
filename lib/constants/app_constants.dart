@@ -75,12 +75,23 @@ class AppStrings {
 
   // Publications Section
   static const String publicationsTitle = 'Publications';
-  static const String bookTitle = 'Silent Suffering';
-  static const String bookSubtitle = 'The unseen battle of Human rights';
-  static const String bookAuthor = 'By Sajawal Khan';
-  static const String bookDescription =
+
+  // Book 1
+  static const String book1Title = 'Silent Suffering';
+  static const String book1Subtitle = 'The unseen battle of Human rights';
+  static const String book1Author = 'By Sajawal Khan';
+  static const String book1Description =
       'A powerful exploration of human rights violations and the silent struggles faced by countless individuals. This book sheds light on the untold stories of suffering and the fight for justice and dignity.';
+
+  // Book 2
+  static const String book2Title = 'Your Second Book Title';
+  static const String book2Subtitle = 'Subtitle Here';
+  static const String book2Author = 'By Sajawal Khan';
+  static const String book2Description =
+      'Description of your second book goes here. Add details about the book\'s content and key themes.';
+
   static const String viewOnAmazon = 'View on Amazon';
+  static const String downloadPDF = 'Download PDF';
   static const String authorLabel = 'Author';
   static const String publishedLabel = 'Published Work';
 
@@ -113,7 +124,9 @@ class AppUrls {
       'https://www.linkedin.com/in/sajawal-khan-820075384';
   static const String github = 'https://github.com/sajawalkhansadozai';
   static const String whatsapp = 'https://wa.me/923457257719';
-  static const String amazonBook = 'https://a.co/d/g1pyDRN';
+  static const String book1Amazon = 'https://a.co/d/g1pyDRN';
+  static const String book2GitHub =
+      'https://github.com/sajawalkhansadozai/portfolio/raw/main/assets/books/book2.pdf';
 }
 
 class AppDimensions {

@@ -14,8 +14,8 @@ class PublicationsSection extends StatefulWidget {
 }
 
 class _PublicationsSectionState extends State<PublicationsSection> {
-  bool _isBookHovering = false;
-  bool _isButtonHovering = false;
+  int? _hoveredBookIndex;
+  int? _hoveredButtonIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,74 @@ class _PublicationsSectionState extends State<PublicationsSection> {
           const SizedBox(height: 10),
           _buildDivider(),
           const SizedBox(height: 50),
-          _buildBookCard(),
+          widget.isMobile
+              ? Column(
+                  children: [
+                    _buildBookCard(
+                      title: AppStrings.book1Title,
+                      subtitle: AppStrings.book1Subtitle,
+                      author: AppStrings.book1Author,
+                      description: AppStrings.book1Description,
+                      buttonLabel: AppStrings.viewOnAmazon,
+                      url: AppUrls.book1Amazon,
+                      gradientColors: [
+                        const Color(0xFFDC143C),
+                        const Color(0xFF8B0000),
+                      ],
+                      index: 0,
+                    ),
+                    const SizedBox(height: 40),
+                    _buildBookCard(
+                      title: AppStrings.book2Title,
+                      subtitle: AppStrings.book2Subtitle,
+                      author: AppStrings.book2Author,
+                      description: AppStrings.book2Description,
+                      buttonLabel: AppStrings.downloadPDF,
+                      url: AppUrls.book2GitHub,
+                      gradientColors: [
+                        const Color(0xFF2E3192),
+                        const Color(0xFF1E2272),
+                      ],
+                      index: 1,
+                    ),
+                  ],
+                )
+              : Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: _buildBookCard(
+                        title: AppStrings.book1Title,
+                        subtitle: AppStrings.book1Subtitle,
+                        author: AppStrings.book1Author,
+                        description: AppStrings.book1Description,
+                        buttonLabel: AppStrings.viewOnAmazon,
+                        url: AppUrls.book1Amazon,
+                        gradientColors: [
+                          const Color(0xFFDC143C),
+                          const Color(0xFF8B0000),
+                        ],
+                        index: 0,
+                      ),
+                    ),
+                    const SizedBox(width: 40),
+                    Expanded(
+                      child: _buildBookCard(
+                        title: AppStrings.book2Title,
+                        subtitle: AppStrings.book2Subtitle,
+                        author: AppStrings.book2Author,
+                        description: AppStrings.book2Description,
+                        buttonLabel: AppStrings.downloadPDF,
+                        url: AppUrls.book2GitHub,
+                        gradientColors: [
+                          const Color(0xFF2E3192),
+                          const Color(0xFF1E2272),
+                        ],
+                        index: 1,
+                      ),
+                    ),
+                  ],
+                ),
         ],
       ),
     );
@@ -56,69 +123,70 @@ class _PublicationsSectionState extends State<PublicationsSection> {
     );
   }
 
-  Widget _buildBookCard() {
+  Widget _buildBookCard({
+    required String title,
+    required String subtitle,
+    required String author,
+    required String description,
+    required String buttonLabel,
+    required String url,
+    required List<Color> gradientColors,
+    required int index,
+  }) {
+    final bool isHovering = _hoveredBookIndex == index;
+
     return MouseRegion(
-      onEnter: (_) => setState(() => _isBookHovering = true),
-      onExit: (_) => setState(() => _isBookHovering = false),
+      onEnter: (_) => setState(() => _hoveredBookIndex = index),
+      onExit: (_) => setState(() => _hoveredBookIndex = null),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
-        transform: Matrix4.identity()..scale(_isBookHovering ? 1.02 : 1.0),
-        width: double.infinity,
-        constraints: BoxConstraints(
-          maxWidth: widget.isMobile ? double.infinity : 1000,
-        ),
+        transform: Matrix4.identity()..scale(isHovering ? 1.02 : 1.0),
         decoration: BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.circular(25),
           border: Border.all(
-            color: _isBookHovering
+            color: isHovering
                 ? AppColors.primary.withOpacity(0.3)
                 : Colors.transparent,
             width: 2,
           ),
           boxShadow: [
             BoxShadow(
-              color: _isBookHovering
+              color: isHovering
                   ? AppColors.primary.withOpacity(0.15)
                   : Colors.black.withOpacity(0.1),
-              blurRadius: _isBookHovering ? 30 : 20,
-              offset: Offset(0, _isBookHovering ? 15 : 10),
+              blurRadius: isHovering ? 30 : 20,
+              offset: Offset(0, isHovering ? 15 : 10),
             ),
           ],
         ),
-        child: widget.isMobile ? _buildMobileLayout() : _buildDesktopLayout(),
+        child: Padding(
+          padding: EdgeInsets.all(widget.isMobile ? 25 : 35),
+          child: Column(
+            children: [
+              _buildBookCover(gradientColors, title, subtitle),
+              const SizedBox(height: 30),
+              _buildBookInfo(
+                title,
+                subtitle,
+                author,
+                description,
+                buttonLabel,
+                url,
+                index,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
 
-  Widget _buildMobileLayout() {
-    return Padding(
-      padding: const EdgeInsets.all(25),
-      child: Column(
-        children: [
-          _buildBookCover(),
-          const SizedBox(height: 35),
-          _buildBookInfo(),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDesktopLayout() {
-    return Padding(
-      padding: const EdgeInsets.all(45),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(flex: 2, child: _buildBookCover()),
-          const SizedBox(width: 70),
-          Expanded(flex: 3, child: _buildBookInfo()),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBookCover() {
+  Widget _buildBookCover(
+    List<Color> gradientColors,
+    String title,
+    String subtitle,
+  ) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
@@ -139,12 +207,11 @@ class _PublicationsSectionState extends State<PublicationsSection> {
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [const Color(0xFFDC143C), const Color(0xFF8B0000)],
+                colors: gradientColors,
               ),
             ),
             child: Stack(
               children: [
-                // Decorative circular patterns
                 Positioned(
                   left: -50,
                   top: 50,
@@ -205,7 +272,17 @@ class _PublicationsSectionState extends State<PublicationsSection> {
     );
   }
 
-  Widget _buildBookInfo() {
+  Widget _buildBookInfo(
+    String title,
+    String subtitle,
+    String author,
+    String description,
+    String buttonLabel,
+    String url,
+    int bookIndex,
+  ) {
+    final bool isButtonHovered = _hoveredButtonIndex == bookIndex;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -241,18 +318,18 @@ class _PublicationsSectionState extends State<PublicationsSection> {
         ),
         const SizedBox(height: 20),
         Text(
-          AppStrings.bookTitle,
+          title,
           style: GoogleFonts.poppins(
-            fontSize: widget.isMobile ? 28 : 36,
+            fontSize: widget.isMobile ? 24 : 30,
             fontWeight: FontWeight.bold,
             color: AppColors.primary,
           ),
         ),
         const SizedBox(height: 10),
         Text(
-          AppStrings.bookSubtitle,
+          subtitle,
           style: GoogleFonts.poppins(
-            fontSize: widget.isMobile ? 16 : 20,
+            fontSize: widget.isMobile ? 14 : 18,
             color: Colors.grey[700],
             fontStyle: FontStyle.italic,
           ),
@@ -263,7 +340,7 @@ class _PublicationsSectionState extends State<PublicationsSection> {
             const Icon(Icons.person, size: 20, color: AppColors.primary),
             const SizedBox(width: 8),
             Text(
-              AppStrings.bookAuthor,
+              author,
               style: GoogleFonts.poppins(
                 fontSize: widget.isMobile ? 14 : 16,
                 color: AppColors.black87,
@@ -272,25 +349,26 @@ class _PublicationsSectionState extends State<PublicationsSection> {
             ),
           ],
         ),
-        const SizedBox(height: 30),
+        const SizedBox(height: 25),
         Text(
-          AppStrings.bookDescription,
+          description,
           style: GoogleFonts.poppins(
-            fontSize: widget.isMobile ? 14 : 16,
+            fontSize: widget.isMobile ? 13 : 15,
             color: AppColors.black87,
             height: 1.8,
           ),
+          maxLines: 4,
+          overflow: TextOverflow.ellipsis,
         ),
-        const SizedBox(height: 40),
+        const SizedBox(height: 30),
         MouseRegion(
-          onEnter: (_) => setState(() => _isButtonHovering = true),
-          onExit: (_) => setState(() => _isButtonHovering = false),
+          onEnter: (_) => setState(() => _hoveredButtonIndex = bookIndex),
+          onExit: (_) => setState(() => _hoveredButtonIndex = null),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 300),
-            transform: Matrix4.identity()
-              ..scale(_isButtonHovering ? 1.05 : 1.0),
+            transform: Matrix4.identity()..scale(isButtonHovered ? 1.05 : 1.0),
             child: ElevatedButton.icon(
-              onPressed: () => _launchUrl(AppUrls.amazonBook),
+              onPressed: () => _launchUrl(url),
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primary,
                 foregroundColor: AppColors.white,
@@ -301,12 +379,17 @@ class _PublicationsSectionState extends State<PublicationsSection> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
-                elevation: _isButtonHovering ? 8 : 3,
+                elevation: isButtonHovered ? 8 : 3,
                 shadowColor: AppColors.primary.withOpacity(0.5),
               ),
-              icon: const FaIcon(FontAwesomeIcons.amazon, size: 20),
+              icon: FaIcon(
+                buttonLabel.contains('Amazon')
+                    ? FontAwesomeIcons.amazon
+                    : FontAwesomeIcons.download,
+                size: 20,
+              ),
               label: Text(
-                AppStrings.viewOnAmazon,
+                buttonLabel,
                 style: GoogleFonts.poppins(
                   fontSize: widget.isMobile ? 14 : 16,
                   fontWeight: FontWeight.bold,
