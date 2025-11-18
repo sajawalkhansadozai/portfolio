@@ -6,6 +6,7 @@ import '../widgets/sections/skills_section.dart';
 import '../widgets/sections/achievements_section.dart';
 import '../widgets/sections/projects_section.dart';
 import '../widgets/sections/publications_section.dart';
+import '../widgets/sections/blog_section.dart';
 import '../widgets/sections/contact_section.dart';
 import '../widgets/navigation/desktop_navbar.dart';
 import '../widgets/navigation/mobile_appbar.dart';
@@ -25,6 +26,7 @@ class _PortfolioHomePageState extends State<PortfolioHomePage> {
   bool _showScrollToTop = false;
 
   final List<GlobalKey> _sectionKeys = [
+    GlobalKey(),
     GlobalKey(),
     GlobalKey(),
     GlobalKey(),
@@ -96,7 +98,7 @@ class _PortfolioHomePageState extends State<PortfolioHomePage> {
                     key: _sectionKeys[0],
                     child: HeroSection(
                       isMobile: isMobile,
-                      onContactTap: () => _scrollToSection(6),
+                      onContactTap: () => _scrollToSection(7),
                     ),
                   ),
                   Container(
@@ -122,6 +124,10 @@ class _PortfolioHomePageState extends State<PortfolioHomePage> {
                   ),
                   Container(
                     key: _sectionKeys[6],
+                    child: BlogSection(isMobile: isMobile),
+                  ),
+                  Container(
+                    key: _sectionKeys[7],
                     child: ContactSection(isMobile: isMobile),
                   ),
                 ],
@@ -144,11 +150,8 @@ class _PortfolioHomePageState extends State<PortfolioHomePage> {
                       curve: Curves.easeInOut,
                     );
                   },
-                  backgroundColor: AppColors.accent,
-                  child: const Icon(
-                    Icons.arrow_upward,
-                    color: AppColors.primary,
-                  ),
+                  backgroundColor: AppColors.primary,
+                  child: const Icon(Icons.arrow_upward, color: AppColors.white),
                 ),
               ),
           ],

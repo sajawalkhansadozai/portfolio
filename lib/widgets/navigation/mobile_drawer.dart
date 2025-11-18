@@ -26,13 +26,25 @@ class MobileDrawer extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const CircleAvatar(
-                    radius: 35,
-                    backgroundColor: AppColors.white,
-                    child: Icon(
-                      Icons.person,
-                      size: 40,
-                      color: AppColors.primary,
+                  Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: LinearGradient(
+                        colors: [AppColors.primary, AppColors.accent],
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.accent.withOpacity(0.5),
+                          blurRadius: 15,
+                          offset: const Offset(0, 5),
+                        ),
+                      ],
+                    ),
+                    padding: const EdgeInsets.all(3),
+                    child: const CircleAvatar(
+                      radius: 35,
+                      backgroundImage: AssetImage('assets/images/profile.png'),
+                      backgroundColor: AppColors.white,
                     ),
                   ),
                   const SizedBox(height: 10),

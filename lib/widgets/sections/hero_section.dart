@@ -55,11 +55,15 @@ class _HeroSectionState extends State<HeroSection>
       padding: EdgeInsets.only(
         top: widget.isMobile ? 0 : AppDimensions.navBarHeight,
       ),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [AppColors.primary, AppColors.primaryDark],
+          colors: [
+            AppColors.primary,
+            AppColors.secondary,
+            AppColors.primaryDark,
+          ],
         ),
       ),
       child: Stack(
@@ -73,7 +77,13 @@ class _HeroSectionState extends State<HeroSection>
               height: 300,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: AppColors.white.withOpacity(0.05),
+                gradient: RadialGradient(
+                  colors: [
+                    AppColors.accent.withOpacity(0.15),
+                    AppColors.accent.withOpacity(0.05),
+                    Colors.transparent,
+                  ],
+                ),
               ),
             ),
           ),
@@ -85,7 +95,13 @@ class _HeroSectionState extends State<HeroSection>
               height: 400,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: AppColors.accent.withOpacity(0.05),
+                gradient: RadialGradient(
+                  colors: [
+                    AppColors.secondaryGradient[0].withOpacity(0.15),
+                    AppColors.secondaryGradient[1].withOpacity(0.05),
+                    Colors.transparent,
+                  ],
+                ),
               ),
             ),
           ),
@@ -253,28 +269,44 @@ class _HeroSectionState extends State<HeroSection>
                         duration: const Duration(milliseconds: 300),
                         transform: Matrix4.identity()
                           ..scale(_isHovering ? 1.05 : 1.0),
-                        child: ElevatedButton.icon(
-                          onPressed: widget.onContactTap,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.accent,
-                            foregroundColor: AppColors.primary,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: widget.isMobile ? 35 : 45,
-                              vertical: widget.isMobile ? 18 : 22,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            gradient: LinearGradient(
+                              colors: _isHovering
+                                  ? [AppColors.accentOrange, AppColors.accent]
+                                  : [AppColors.accent, AppColors.accent],
                             ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            elevation: _isHovering ? 8 : 4,
-                            shadowColor: AppColors.accent.withOpacity(0.5),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.accent.withOpacity(0.5),
+                                blurRadius: _isHovering ? 20 : 10,
+                                offset: Offset(0, _isHovering ? 8 : 4),
+                              ),
+                            ],
                           ),
-                          icon: const Icon(Icons.contact_mail, size: 22),
-                          label: Text(
-                            AppStrings.ctaButton,
-                            style: GoogleFonts.poppins(
-                              fontSize: widget.isMobile ? 16 : 18,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 0.5,
+                          child: ElevatedButton.icon(
+                            onPressed: widget.onContactTap,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.transparent,
+                              shadowColor: Colors.transparent,
+                              foregroundColor: AppColors.white,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: widget.isMobile ? 35 : 45,
+                                vertical: widget.isMobile ? 18 : 22,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                            ),
+                            icon: const Icon(Icons.rocket_launch, size: 22),
+                            label: Text(
+                              AppStrings.ctaButton,
+                              style: GoogleFonts.poppins(
+                                fontSize: widget.isMobile ? 16 : 18,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 0.5,
+                              ),
                             ),
                           ),
                         ),

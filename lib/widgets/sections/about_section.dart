@@ -62,8 +62,15 @@ class _AboutSectionState extends State<AboutSection> {
       width: 80,
       height: 4,
       decoration: BoxDecoration(
-        color: AppColors.accent,
+        gradient: LinearGradient(colors: [AppColors.primary, AppColors.accent]),
         borderRadius: BorderRadius.circular(2),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.primary.withOpacity(0.3),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
     );
   }
@@ -81,16 +88,35 @@ class _AboutSectionState extends State<AboutSection> {
             height: 250,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  AppColors.primary.withOpacity(0.2),
+                  AppColors.accent.withOpacity(0.2),
+                ],
+              ),
               boxShadow: [
                 BoxShadow(
-                  color: AppColors.primary.withOpacity(0.2),
-                  blurRadius: 20,
-                  spreadRadius: 5,
+                  color: AppColors.primary.withOpacity(0.3),
+                  blurRadius: _isImageHovering ? 30 : 20,
+                  spreadRadius: _isImageHovering ? 8 : 5,
+                ),
+                BoxShadow(
+                  color: AppColors.accent.withOpacity(0.2),
+                  blurRadius: _isImageHovering ? 40 : 25,
+                  spreadRadius: _isImageHovering ? 10 : 6,
                 ),
               ],
-              image: const DecorationImage(
-                image: AssetImage('assets/images/profile.png'),
-                fit: BoxFit.cover,
+            ),
+            child: Container(
+              margin: const EdgeInsets.all(8),
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: AssetImage('assets/images/profile.png'),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
@@ -106,16 +132,31 @@ class _AboutSectionState extends State<AboutSection> {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           decoration: BoxDecoration(
-            color: AppColors.accent.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Text(
-            '👋 ${AppStrings.aboutSubtitle}',
-            style: GoogleFonts.poppins(
-              fontSize: widget.isMobile ? 20 : 24,
-              fontWeight: FontWeight.bold,
-              color: AppColors.primary,
+            gradient: LinearGradient(
+              colors: [
+                AppColors.primary.withOpacity(0.1),
+                AppColors.accent.withOpacity(0.1),
+              ],
             ),
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(
+              color: AppColors.primary.withOpacity(0.2),
+              width: 1.5,
+            ),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text('👋 ', style: TextStyle(fontSize: 20)),
+              Text(
+                AppStrings.aboutSubtitle,
+                style: GoogleFonts.poppins(
+                  fontSize: widget.isMobile ? 18 : 22,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.primary,
+                ),
+              ),
+            ],
           ),
         ),
         const SizedBox(height: 25),

@@ -1,13 +1,31 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const Color primary = Color(0xFF2E3192);
-  static const Color primaryDark = Color(0xFF1E2272);
-  static const Color accent = Color(0xFFFFD700);
+  static const Color primary = Color(0xFF6366F1);
+  static const Color primaryDark = Color(0xFF4F46E5);
+  static const Color primaryLight = Color(0xFF818CF8);
+  static const Color secondary = Color(0xFFEC4899);
+  static const Color secondaryDark = Color(0xFFDB2777);
+  static const Color accent = Color(0xFF06B6D4);
+  static const Color accentOrange = Color(0xFFFF6B35);
   static const Color white = Colors.white;
   static const Color black87 = Colors.black87;
   static const Color white70 = Colors.white70;
   static const Color grey = Colors.grey;
+
+  // Gradient combinations
+  static const List<Color> primaryGradient = [
+    Color(0xFF6366F1),
+    Color(0xFF8B5CF6),
+  ];
+  static const List<Color> secondaryGradient = [
+    Color(0xFFEC4899),
+    Color(0xFFF59E0B),
+  ];
+  static const List<Color> accentGradient = [
+    Color(0xFF06B6D4),
+    Color(0xFF3B82F6),
+  ];
 }
 
 class AppStrings {
@@ -76,6 +94,10 @@ class AppStrings {
   // Publications Section
   static const String publicationsTitle = 'Publications';
 
+  // Blog Section
+  static const String blogTitle = 'Blog';
+  static const String blogSubtitle = 'Thoughts, stories and ideas';
+
   // Book 1
   static const String book1Title = 'Silent Suffering';
   static const String book1Subtitle = 'The unseen battle of Human rights';
@@ -115,6 +137,7 @@ class AppStrings {
     'Skills',
     'Projects',
     'Publications',
+    'Blog',
     'Contact',
   ];
 }

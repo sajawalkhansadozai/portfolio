@@ -64,8 +64,15 @@ class _SkillsSectionState extends State<SkillsSection> {
       width: 80,
       height: 4,
       decoration: BoxDecoration(
-        color: AppColors.accent,
+        gradient: LinearGradient(colors: [AppColors.primary, AppColors.accent]),
         borderRadius: BorderRadius.circular(2),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.primary.withOpacity(0.3),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
     );
   }
@@ -80,30 +87,55 @@ class _SkillsSectionState extends State<SkillsSection> {
         duration: const Duration(milliseconds: 300),
         padding: EdgeInsets.all(widget.isMobile ? 15 : 20),
         decoration: BoxDecoration(
-          color: AppColors.white,
+          gradient: isHovered
+              ? LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    AppColors.primary.withOpacity(0.05),
+                    AppColors.accent.withOpacity(0.05),
+                  ],
+                )
+              : null,
+          color: isHovered ? null : AppColors.white,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
             color: isHovered ? AppColors.primary : Colors.grey[300]!,
-            width: isHovered ? 2 : 1,
+            width: isHovered ? 2.5 : 1,
           ),
           boxShadow: [
             BoxShadow(
               color: isHovered
-                  ? AppColors.primary.withOpacity(0.2)
+                  ? AppColors.primary.withOpacity(0.3)
                   : Colors.black.withOpacity(0.05),
-              blurRadius: isHovered ? 20 : 10,
-              offset: Offset(0, isHovered ? 10 : 5),
+              blurRadius: isHovered ? 25 : 10,
+              offset: Offset(0, isHovered ? 12 : 5),
+              spreadRadius: isHovered ? 2 : 0,
             ),
           ],
         ),
-        transform: Matrix4.identity()..scale(isHovered ? 1.05 : 1.0),
+        transform: Matrix4.identity()..scale(isHovered ? 1.08 : 1.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            FaIcon(
-              skill.icon,
-              size: widget.isMobile ? 30 : 40,
-              color: AppColors.primary,
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: LinearGradient(
+                  colors: isHovered
+                      ? [AppColors.primary, AppColors.secondary]
+                      : [
+                          AppColors.primary.withOpacity(0.1),
+                          AppColors.accent.withOpacity(0.1),
+                        ],
+                ),
+              ),
+              child: FaIcon(
+                skill.icon,
+                size: widget.isMobile ? 28 : 36,
+                color: isHovered ? AppColors.white : AppColors.primary,
+              ),
             ),
             const SizedBox(height: 15),
             Text(
@@ -118,13 +150,32 @@ class _SkillsSectionState extends State<SkillsSection> {
             const SizedBox(height: 10),
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: LinearProgressIndicator(
-                value: skill.level,
-                backgroundColor: Colors.grey[200],
-                valueColor: const AlwaysStoppedAnimation<Color>(
-                  AppColors.accent,
+              child: Container(
+                height: 6,
+                decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                minHeight: 6,
+                child: FractionallySizedBox(
+                  alignment: Alignment.centerLeft,
+                  widthFactor: skill.level,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [AppColors.primary, AppColors.accent],
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: isHovered
+                          ? [
+                              BoxShadow(
+                                color: AppColors.primary.withOpacity(0.4),
+                                blurRadius: 6,
+                              ),
+                            ]
+                          : null,
+                    ),
+                  ),
+                ),
               ),
             ),
           ],

@@ -96,9 +96,9 @@ class _AchievementsSectionState extends State<AchievementsSection>
             physics: const NeverScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: widget.isMobile ? 1 : 2,
-              crossAxisSpacing: 30,
-              mainAxisSpacing: 30,
-              childAspectRatio: widget.isMobile ? 3.0 : 3.5,
+              crossAxisSpacing: 24,
+              mainAxisSpacing: 24,
+              childAspectRatio: widget.isMobile ? 3.5 : 4.0,
             ),
             itemCount: achievements.length,
             itemBuilder: (context, index) {
@@ -159,19 +159,19 @@ class _AchievementsSectionState extends State<AchievementsSection>
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.all(widget.isMobile ? 20 : 30),
+          padding: EdgeInsets.all(widget.isMobile ? 16 : 22),
           child: Row(
             children: [
               AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
-                padding: const EdgeInsets.all(15),
+                padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [color, color.withOpacity(0.7)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
                       color: color.withOpacity(0.3),
@@ -182,16 +182,16 @@ class _AchievementsSectionState extends State<AchievementsSection>
                 ),
                 child: Icon(
                   icon,
-                  size: widget.isMobile ? 30 : 40,
+                  size: widget.isMobile ? 26 : 34,
                   color: AppColors.white,
                 ),
               ),
-              const SizedBox(width: 20),
+              const SizedBox(width: 16),
               Expanded(
                 child: Text(
                   title,
                   style: GoogleFonts.poppins(
-                    fontSize: widget.isMobile ? 14 : 16,
+                    fontSize: widget.isMobile ? 13 : 15,
                     fontWeight: FontWeight.w600,
                     color: AppColors.black87,
                     height: 1.4,
@@ -201,7 +201,7 @@ class _AchievementsSectionState extends State<AchievementsSection>
               Icon(
                 Icons.check_circle,
                 color: color,
-                size: widget.isMobile ? 24 : 28,
+                size: widget.isMobile ? 20 : 24,
               ),
             ],
           ),

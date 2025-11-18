@@ -72,9 +72,11 @@ class _PublicationsSectionState extends State<PublicationsSection> {
                   ],
                 )
               : Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
+                    SizedBox(
+                      width: 260,
                       child: _buildBookCard(
                         title: AppStrings.book1Title,
                         subtitle: AppStrings.book1Subtitle,
@@ -89,8 +91,9 @@ class _PublicationsSectionState extends State<PublicationsSection> {
                         index: 0,
                       ),
                     ),
-                    const SizedBox(width: 40),
-                    Expanded(
+                    const SizedBox(width: 32),
+                    SizedBox(
+                      width: 260,
                       child: _buildBookCard(
                         title: AppStrings.book2Title,
                         subtitle: AppStrings.book2Subtitle,
@@ -143,29 +146,29 @@ class _PublicationsSectionState extends State<PublicationsSection> {
         transform: Matrix4.identity()..scale(isHovering ? 1.02 : 1.0),
         decoration: BoxDecoration(
           color: AppColors.white,
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(16),
           border: Border.all(
             color: isHovering
                 ? AppColors.primary.withOpacity(0.3)
                 : Colors.transparent,
-            width: 2,
+            width: 1.4,
           ),
           boxShadow: [
             BoxShadow(
               color: isHovering
-                  ? AppColors.primary.withOpacity(0.15)
-                  : Colors.black.withOpacity(0.1),
-              blurRadius: isHovering ? 30 : 20,
-              offset: Offset(0, isHovering ? 15 : 10),
+                  ? AppColors.primary.withOpacity(0.12)
+                  : Colors.black.withOpacity(0.05),
+              blurRadius: isHovering ? 18 : 10,
+              offset: Offset(0, isHovering ? 8 : 4),
             ),
           ],
         ),
         child: Padding(
-          padding: EdgeInsets.all(widget.isMobile ? 25 : 35),
+          padding: EdgeInsets.all(widget.isMobile ? 8 : 12),
           child: Column(
             children: [
               _buildBookCover(gradientColors, title, subtitle),
-              const SizedBox(height: 30),
+              const SizedBox(height: 8),
               _buildBookInfo(
                 title,
                 subtitle,
@@ -204,7 +207,8 @@ class _PublicationsSectionState extends State<PublicationsSection> {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(15),
         child: AspectRatio(
-          aspectRatio: 2 / 3,
+          // Larger aspect ratio value -> less height
+          aspectRatio: 3.2 / 3,
           child: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -231,24 +235,24 @@ class _PublicationsSectionState extends State<PublicationsSection> {
         Positioned.fill(child: CustomPaint(painter: GeometricPatternPainter())),
         // Content
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 30),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 title.replaceAll('After Humanity', 'After Humanity:'),
                 style: GoogleFonts.poppins(
-                  fontSize: 28,
+                  fontSize: 14,
                   fontWeight: FontWeight.w600,
                   color: Colors.white,
                   height: 1.2,
                 ),
               ),
-              const SizedBox(height: 15),
+              const SizedBox(height: 6),
               Text(
                 subtitle,
                 style: GoogleFonts.poppins(
-                  fontSize: 16,
+                  fontSize: 9,
                   color: Colors.white.withOpacity(0.95),
                   height: 1.3,
                   fontWeight: FontWeight.w400,
@@ -257,14 +261,14 @@ class _PublicationsSectionState extends State<PublicationsSection> {
               const Spacer(),
               Container(
                 height: 2,
-                width: 60,
+                width: 30,
                 color: Colors.white.withOpacity(0.8),
               ),
-              const SizedBox(height: 15),
+              const SizedBox(height: 6),
               Text(
                 'Sajawal Khan Sadozai',
                 style: GoogleFonts.poppins(
-                  fontSize: 18,
+                  fontSize: 10,
                   fontWeight: FontWeight.w600,
                   color: Colors.white,
                 ),
@@ -295,14 +299,14 @@ class _PublicationsSectionState extends State<PublicationsSection> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(30),
+          padding: const EdgeInsets.all(14),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'Sajawal Khan',
                 style: GoogleFonts.poppins(
-                  fontSize: 20,
+                  fontSize: 11,
                   fontWeight: FontWeight.w600,
                   color: Colors.white,
                 ),
@@ -311,22 +315,22 @@ class _PublicationsSectionState extends State<PublicationsSection> {
               Text(
                 'The unseen\nbattle of\nHuman rights',
                 style: GoogleFonts.poppins(
-                  fontSize: 16,
+                  fontSize: 8,
                   color: Colors.white.withOpacity(0.9),
                   height: 1.3,
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 6),
               Text(
                 'Silent\nSuffering',
                 style: GoogleFonts.poppins(
-                  fontSize: 42,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                   height: 1.1,
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 12),
             ],
           ),
         ),
@@ -344,7 +348,6 @@ class _PublicationsSectionState extends State<PublicationsSection> {
     int bookIndex,
   ) {
     final bool isButtonHovered = _hoveredButtonIndex == bookIndex;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -353,22 +356,22 @@ class _PublicationsSectionState extends State<PublicationsSection> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               decoration: BoxDecoration(
-                color: AppColors.primary.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(20),
+                color: AppColors.primary.withOpacity(0.08),
+                borderRadius: BorderRadius.circular(12),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const Icon(
                     Icons.auto_stories,
-                    size: 16,
+                    size: 14,
                     color: AppColors.primary,
                   ),
-                  const SizedBox(width: 6),
+                  const SizedBox(width: 4),
                   Text(
                     AppStrings.publishedLabel,
                     style: GoogleFonts.poppins(
-                      fontSize: 12,
+                      fontSize: widget.isMobile ? 11 : 12,
                       fontWeight: FontWeight.w600,
                       color: AppColors.primary,
                     ),
@@ -378,51 +381,53 @@ class _PublicationsSectionState extends State<PublicationsSection> {
             ),
           ],
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 6),
         Text(
           title,
           style: GoogleFonts.poppins(
-            fontSize: widget.isMobile ? 24 : 30,
+            fontSize: widget.isMobile ? 16 : 18,
             fontWeight: FontWeight.bold,
             color: AppColors.primary,
           ),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 4),
         Text(
           subtitle,
           style: GoogleFonts.poppins(
-            fontSize: widget.isMobile ? 14 : 18,
+            fontSize: widget.isMobile ? 11 : 13,
             color: Colors.grey[700],
             fontStyle: FontStyle.italic,
           ),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 6),
         Row(
           children: [
-            const Icon(Icons.person, size: 20, color: AppColors.primary),
-            const SizedBox(width: 8),
+            const Icon(Icons.person, size: 16, color: AppColors.primary),
+            const SizedBox(width: 6),
             Text(
               author,
               style: GoogleFonts.poppins(
-                fontSize: widget.isMobile ? 14 : 16,
+                fontSize: widget.isMobile ? 10 : 12,
                 color: AppColors.black87,
                 fontWeight: FontWeight.w500,
               ),
             ),
           ],
         ),
-        const SizedBox(height: 25),
+        const SizedBox(height: 6),
         Text(
           description,
           style: GoogleFonts.poppins(
-            fontSize: widget.isMobile ? 13 : 15,
+            fontSize: widget.isMobile ? 10 : 11,
             color: AppColors.black87,
-            height: 1.8,
+            height: 1.4,
           ),
-          maxLines: 4,
+          maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
-        const SizedBox(height: 30),
+        const SizedBox(height: 8),
         MouseRegion(
           onEnter: (_) => setState(() => _hoveredButtonIndex = bookIndex),
           onExit: (_) => setState(() => _hoveredButtonIndex = null),
@@ -435,8 +440,8 @@ class _PublicationsSectionState extends State<PublicationsSection> {
                 backgroundColor: AppColors.primary,
                 foregroundColor: AppColors.white,
                 padding: EdgeInsets.symmetric(
-                  horizontal: widget.isMobile ? 25 : 35,
-                  vertical: widget.isMobile ? 15 : 18,
+                  horizontal: widget.isMobile ? 14 : 16,
+                  vertical: widget.isMobile ? 8 : 10,
                 ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
@@ -448,28 +453,23 @@ class _PublicationsSectionState extends State<PublicationsSection> {
                 buttonLabel.contains('Amazon')
                     ? FontAwesomeIcons.amazon
                     : FontAwesomeIcons.download,
-                size: 20,
+                size: 12,
               ),
               label: Text(
                 buttonLabel,
                 style: GoogleFonts.poppins(
-                  fontSize: widget.isMobile ? 14 : 16,
+                  fontSize: widget.isMobile ? 11 : 12,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
           ),
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 6),
         Wrap(
-          spacing: 10,
-          runSpacing: 10,
-          children: [
-            _buildTag('Human Rights'),
-            _buildTag('Social Justice'),
-            _buildTag('Non-Fiction'),
-            _buildTag('Activism'),
-          ],
+          spacing: 6,
+          runSpacing: 6,
+          children: [_buildTag('Rights'), _buildTag('Justice')],
         ),
       ],
     );
@@ -477,7 +477,7 @@ class _PublicationsSectionState extends State<PublicationsSection> {
 
   Widget _buildTag(String label) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.primary.withOpacity(0.3)),
         borderRadius: BorderRadius.circular(15),
@@ -485,7 +485,7 @@ class _PublicationsSectionState extends State<PublicationsSection> {
       child: Text(
         label,
         style: GoogleFonts.poppins(
-          fontSize: 12,
+          fontSize: 9,
           color: AppColors.primary,
           fontWeight: FontWeight.w500,
         ),

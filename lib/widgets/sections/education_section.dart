@@ -70,7 +70,7 @@ class _EducationSectionState extends State<EducationSection> {
         constraints: BoxConstraints(
           maxWidth: widget.isMobile ? double.infinity : 850,
         ),
-        padding: EdgeInsets.all(widget.isMobile ? 25 : 35),
+        padding: EdgeInsets.all(widget.isMobile ? 20 : 28),
         decoration: BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.circular(20),
@@ -94,7 +94,7 @@ class _EducationSectionState extends State<EducationSection> {
             Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.all(15),
+                  padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topLeft,
@@ -104,7 +104,7 @@ class _EducationSectionState extends State<EducationSection> {
                         AppColors.primary.withOpacity(0.8),
                       ],
                     ),
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(12),
                     boxShadow: [
                       BoxShadow(
                         color: AppColors.primary.withOpacity(0.3),
@@ -116,10 +116,10 @@ class _EducationSectionState extends State<EducationSection> {
                   child: const Icon(
                     Icons.school,
                     color: AppColors.white,
-                    size: 32,
+                    size: 28,
                   ),
                 ),
-                const SizedBox(width: 20),
+                const SizedBox(width: 16),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -127,16 +127,16 @@ class _EducationSectionState extends State<EducationSection> {
                       Text(
                         AppStrings.degree,
                         style: GoogleFonts.poppins(
-                          fontSize: widget.isMobile ? 18 : 24,
+                          fontSize: widget.isMobile ? 17 : 22,
                           fontWeight: FontWeight.bold,
                           color: AppColors.primary,
                         ),
                       ),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 3),
                       Text(
                         AppStrings.field,
                         style: GoogleFonts.poppins(
-                          fontSize: widget.isMobile ? 14 : 16,
+                          fontSize: widget.isMobile ? 13 : 15,
                           color: AppColors.black87,
                           fontWeight: FontWeight.w500,
                         ),
@@ -146,9 +146,9 @@ class _EducationSectionState extends State<EducationSection> {
                 ),
               ],
             ),
-            const SizedBox(height: 25),
+            const SizedBox(height: 18),
             Container(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: Colors.grey[50],
                 borderRadius: BorderRadius.circular(12),
@@ -156,16 +156,16 @@ class _EducationSectionState extends State<EducationSection> {
               child: Row(
                 children: [
                   _buildInfoChip(Icons.business, AppStrings.institution),
-                  const SizedBox(width: 20),
+                  const SizedBox(width: 16),
                   _buildInfoChip(Icons.calendar_today, AppStrings.year),
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 16),
             Text(
               AppStrings.educationDescription,
               style: GoogleFonts.poppins(
-                fontSize: widget.isMobile ? 14 : 16,
+                fontSize: widget.isMobile ? 13 : 15,
                 color: AppColors.black87,
                 height: 1.8,
                 letterSpacing: 0.3,
@@ -180,12 +180,12 @@ class _EducationSectionState extends State<EducationSection> {
   Widget _buildInfoChip(IconData icon, String text) {
     return Row(
       children: [
-        Icon(icon, size: 18, color: AppColors.primary),
+        Icon(icon, size: 16, color: AppColors.primary),
         const SizedBox(width: 8),
         Text(
           text,
           style: GoogleFonts.poppins(
-            fontSize: widget.isMobile ? 13 : 15,
+            fontSize: widget.isMobile ? 12 : 14,
             color: Colors.grey[700],
             fontWeight: FontWeight.w500,
           ),

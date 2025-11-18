@@ -9,6 +9,7 @@ class MobileAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: AppColors.primary,
+      iconTheme: const IconThemeData(color: AppColors.white),
       title: Text(
         AppStrings.shortName,
         style: GoogleFonts.poppins(
