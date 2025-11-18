@@ -46,16 +46,6 @@ class BlogPostPage extends StatelessWidget {
         ),
       ),
       child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              AppColors.primary.withOpacity(0.7),
-              AppColors.secondary.withOpacity(0.85),
-            ],
-          ),
-        ),
         padding: EdgeInsets.symmetric(
           horizontal: isMobile ? 20 : 100,
           vertical: isMobile ? 40 : 60,
